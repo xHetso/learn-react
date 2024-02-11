@@ -2,18 +2,26 @@ import Header from "./components/Header";
 import { WayToTeach } from "./components/WayToTeach";
 import Button from "./components/Button/Button";
 import { useState } from 'react'
-import { ways } from "./data"
+import { ways, differences } from "./data"
 
 export default function App() {
-  const [content, setContent] = useState('Нажми на кнопку')
+  const [contentType, setContentType] = useState(null)
   
   //let content = 'Нажми на кнопку';
 
   console.log('App Component Render')
 
   function handleClick( type ){
-    setContent(type)
+    setContentType(type)
     //content = type;
+  }
+
+  let tabContent = null
+
+  if(contentType){
+    tabContent = <p>{differences[contentType]}</p>
+  } else {
+    tabContent = <p>Нажми на кнопку</p>
   }
   return (
       <div>
@@ -42,7 +50,15 @@ export default function App() {
             <Button onClick={()=>handleClick('easy')}>Доступность</Button>
             <Button onClick={()=>handleClick('program')}>Концентрация</Button>
 
-            <p>{content}</p>
+            {/* { contentType ? <p>{differences[contentType]}</p> : <p>Нажми на кнопку</p> } */}
+            
+            {/* {!contentType ? <p>Нажми на кнопку</p> : null}
+            {contentType ? <p>{differences[contentType]}</p> : null} */}
+
+            { !contentType && <p>Нажми на кнопку</p>}
+            {contentType && <p>{differences[contentType]}</p>}
+
+            { tabContent }
           </section>
         </main>
       </div>
